@@ -38,3 +38,25 @@
         - Make sure the Django development server is running.
      - Open index.html in a browser:
         - Open the index.html file in your web browser to view the frontend.
+
+     ## Tasks
+
+     ### Frontend (Roupesh)
+     - Home page: 1 hr 30
+     - Login page: 1 hr
+     - Sign up page: 1 hr
+     - Contact page: 1 hr
+     - Product page / Shop page: 2 hr 30
+
+     ### Backend 
+     - User: 1 hr
+     - Authentication: 2 hr
+     - Product: 1 hr 45
+
+     ### Additional Features
+     - Cart page: 1 hr 30
+     - Favorite system: 1 hr
+     - Chat bot: 2 hr
+     - Payment page: 2 hr
+     - Admin panel: 1 hr 30
+     - Responsive: 2 hr
