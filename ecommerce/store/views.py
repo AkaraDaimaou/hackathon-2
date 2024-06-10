@@ -5,9 +5,19 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import User, Profile, Contact, Product, CartItem, Cart
 from .serializers import UserSerializer, ProfileSerializer, ContactSerializer, ProductSerializer, CartItemSerializer, CartSerializer
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return HttpResponse("<h1>Welcome to the E-commerce Store!</h1>")
+
+# @login_required
+#def cart_page(request):
+    try:
+        cart = Cart.objects.get(user=request.user)
+    except Cart.DoesNotExist:
+        cart = None
+    return render(request, 'store/cart_page.html', {'cart': cart})    
 
 class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
