@@ -7,11 +7,11 @@ class User(AbstractUser):
     email =models.EmailField(unique=True)
     
 
-class Profile(models.model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.TextField(blank=True, null=True)
     
-class Contact(models.model):
+class Contact(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     message = models.TextField()
@@ -20,7 +20,7 @@ class Contact(models.model):
     def __str__(self):
         return self.name  
 
-class Product(models.model):
+class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='products/')
@@ -30,10 +30,10 @@ class Product(models.model):
         return self.name      
     
     
-class Cart(models.model):
+class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-class CartItem(models.model):
+class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)        
