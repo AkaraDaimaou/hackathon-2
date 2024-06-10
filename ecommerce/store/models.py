@@ -30,7 +30,7 @@ class Product(models.model):
         return self.name      
     
     
-class Cart(models.Model):
+class Cart(models.model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 class CartItem(models.model):
