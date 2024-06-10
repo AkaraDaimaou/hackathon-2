@@ -75,6 +75,29 @@
 
     <!-- cart -->
     <div class="cart" id="cart">
+    <!-- store/templates/store/cart_page.html -->
+        
+            {% extends "store/base.html" %}
+
+        {% block title %}Shopping Cart{% endblock %}
+
+        {% block content %}
+        <h1>Shopping Cart</h1>
+        {% if cart %}
+            <ul class="list-group">
+                {% for item in cart.items.all %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.product.name }}
+                        <span class="badge badge-primary badge-pill">{{ item.quantity }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+                    <p>Your cart is empty.</p>
+        {% endif %}
+        {% endblock %}
+
+
         <i class="bx bx-x cart__close" id="cart-close"></i>
 
         <h2 class="cart__title-center">My Cart</h2>
@@ -167,6 +190,8 @@
             <span class="cart__prices-total">$38</span>
         </div>
     </div>
+
+
 
     <!-- login -->
     <div class="login" id="login">
