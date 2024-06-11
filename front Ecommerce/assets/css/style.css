@@ -317,7 +317,36 @@ input {
     font-weight: var(--font-bold);
     line-height: 109%;
     margin-bottom: var(--mb-1-5);
+    background: conic-gradient(crimson,coral,orange,blue,coral,crimson);
+    background-clip: text;
+    color: transparent;
+    background-size: 2000px 2000px;
+    animation: rgb 5s infinite linear;
 }
+
+@keyframes rgb {
+    
+    0% {
+        background-position: 0 0 ;
+    }
+
+    25% {
+        background-position: 0 100% ;
+    }
+    
+    50% {
+        background-position: 100% 100% ;
+    }
+
+    75% {
+        background-position: 100% 0 ;
+    }
+
+    100% {
+        background-position: 0 0 ;
+    }
+}
+
 
 .home__description {
     margin-bottom: var(--mb-2-5);
