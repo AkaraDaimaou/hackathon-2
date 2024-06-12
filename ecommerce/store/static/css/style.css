@@ -1,0 +1,40 @@
+/* Add your CSS styling here */
+
+/* Example styling */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.nav__list {
+    list-style: none;
+    display: flex;
+}
+
+.nav__item {
+    margin-right: 20px;
+}
+
+.nav__link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.button {
+    background-color: #ff6f61;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #ff3f3f;
+}
+
+/* Add more CSS as needed */
