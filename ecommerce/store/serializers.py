@@ -1,40 +1,30 @@
 from rest_framework import serializers
-from .models import User, Profile, Contact, Product, CartItem, Cart
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name']
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = Profile
-        fields = ['user', 'address']
-
-
-class ContactSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contact
-        fields = '__all__'  
+from django.contrib.auth.models import User
+from .models import Product, Cart, CartProduct, Contact, User
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'        
+        fields = '__all__'
 
-class CartItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
-
+class CartProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CartItem
-        fields = ['id','product', 'quantity']      
+        model = CartProduct
+        fields = '__all__'
 
 class CartSerializer(serializers.ModelSerializer):
-    items = CartItemSerializer(many=True)
+    products = CartProductSerializer(many=True, read_only=True, source='cartproduct_set')
 
     class Meta:
         model = Cart
-        fields = ['id', 'items']         
+        fields = ['id', 'user', 'products']
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']
