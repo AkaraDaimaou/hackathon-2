@@ -1,11 +1,15 @@
 from django.contrib import admin
-from.models import User, Profile, Contact, Product, Cart, CartItem
+from.models import Product, Cart, CartProduct, Contact
 
 # Register your models here.
 
-admin.site.register(User)
-admin.site.register(Profile)
-admin.site.register(Contact)
+class CartProductInline(admin.TabularInline):
+    model = CartProduct
+
+class CartAdmin(admin.ModelAdmin):
+    inlines = [CartProductInline]
+
 admin.site.register(Product)
-admin.site.register(Cart)
-admin.site.register(CartItem)
+admin.site.register(Cart, CartAdmin)
+admin.site.register(Contact)
+
