@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <!-- SWIPER CSS -->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../static/css/swiper-bundle.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" class="js-color-style" href="assets/css/colors/color-1.css">
 
     <title>e-commerce website</title>
@@ -21,14 +21,14 @@
     <!-- Header -->
     <header class="header" id="header">
         <nav class="nav container">
-            <a href="index.html" class="nav__logo">
+            <a href="Home.html" class="nav__logo">
                 <i class=""></i> LOGO
             </a>
 
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="index.html" class="nav__link active-link">Home</a>
+                        <a href="Home.html" class="nav__link active-link">Home</a>
                     </li>
                     <li class="nav__item">
                         <a href="shop.html" class="nav__link">Shop</a>
@@ -69,7 +69,7 @@
     <!-- Cart -->
     <div class="cart" id="cart">
         <!-- store/templates/store/cart_page.html -->
-        {% extends "store/base.html" %}
+        {% extends "store/myapp/Home.html" %}
         {% block title %}Shopping Cart{% endblock %}
         {% block content %}
         <h1>Shopping Cart</h1>
@@ -276,7 +276,7 @@
     </a>
 
     <!-- JavaScript -->
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="../static/js/swiper-bundle.js"></script>
+    <script src="../static/js/script.js"></script>
 </body>
 </html>
