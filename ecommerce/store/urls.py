@@ -9,7 +9,5 @@ urlpatterns = [
     path('contact/', ContactCreateView.as_view(), name='contact-create'),
     path('auth/register/', register, name='register'),
     path('auth/login/', login, name='login'),
-    path('', home, name='home'),
+     path('',home, name='home'),
 ]
-
-

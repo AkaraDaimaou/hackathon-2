@@ -1,53 +1,62 @@
-from rest_framework import generics, permissions
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Product, Cart, Contact
-from .serializers import ProductSerializer, CartSerializer, ContactSerializer, UserSerializer
-from django.http import HttpResponse
+from django.contrib.auth import login as auth_login, authenticate
+from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
 
-class ProductListCreateView(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-class CartListCreateView(generics.ListCreateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
-
-class CartDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
-
-class ContactCreateView(generics.CreateAPIView):
-    queryset = Contact.objects.all()
-    serializer_class = ContactSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-@api_view(['POST'])
-def register(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    email = request.data.get('email')
-    user = User.objects.create_user(username=username, password=password, email=email)
-    token, created = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key})
-
-@api_view(['POST'])
-def login(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key})
-    else:
-        return Response({'error': 'Invalid credentials'}, status=400)
-        
+# Home View
 def home(request):
-    return HttpResponse("Welcome to the ecommerce application!")
+    return render(request, 'home.html')
+
+# Product Views
+class ProductListCreateView(ListView, CreateView):
+    model = Product
+    template_name = 'products.html'
+    context_object_name = 'products'
+    fields = ['name', 'price', 'description', 'image']
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'product_detail.html'
+    context_object_name = 'product'
+
+# Cart Views
+class CartListCreateView(ListView, CreateView):
+    model = Cart
+    template_name = 'cart_page.html'
+    context_object_name = 'cart_items'
+    fields = ['product', 'quantity']
+
+class CartDetailView(DetailView):
+    model = Cart
+    template_name = 'cart_detail.html'
+    context_object_name = 'cart_item'
+
+# Contact View
+class ContactCreateView(CreateView):
+    model = Contact
+    template_name = 'contact.html'
+    fields = ['name', 'email', 'message']
+    success_url = '/'  # Redirect after successful form submission
+
+# Authentication Views
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # Redirect to home page after successful registration
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return HttpResponseRedirect('/')
+    return render(request, 'login.html')
