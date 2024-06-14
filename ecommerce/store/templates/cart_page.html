@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    
+    <!-- Cart Items List -->
+    <ul>
+        {% for cart_item in cart_items %}
+        <li>
+            {{ cart_item.product.name }} - Quantity: {{ cart_item.quantity }}
+        </li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Cart Item Create Form -->
+    <h2>Add Item to Cart</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add to Cart</button>
+    </form>
+</body>
+</html>
